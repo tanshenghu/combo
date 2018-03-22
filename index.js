@@ -1,7 +1,7 @@
 /**
  *@Author: 谭生虎
  *@Description: 业余时间没事，想到了阿里好像有个seajs的combo功能 于是自己尝试写下js、css文件的combo   < 类似于阿里或支付宝的combo功能 >
- *@Demo: http://www.xxx.com/libs/jquery.js,libs/common.js,pages/main.js?sync=1    http://www.xxx.com/libs/jqueryui.css,pages/style.css
+ *@Demo: http://www.xxx.com/libs/jquery.js,libs/common.js,pages/main.js    http://www.xxx.com/libs/jqueryui.css,pages/style.css
  */
 const __dirpath = '/Volumes/workroom/wwwroot/';
 let http = require('http');
@@ -52,7 +52,9 @@ function getContents(urls, params) {
         var options = { contents, sumlen, len, resolve, reject };
         urls.forEach(f => {
             options.fp = __dirpath + f;
-            params.indexOf('sync') == -1 ? _async(options) : _sync(options);
+            // params.indexOf('sync') == -1 ? _async(options) : _sync(options);
+            // 不管是css还是js都需要按顺序同步输出
+            _sync(options);
         });
     })
 
